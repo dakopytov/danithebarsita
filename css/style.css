@@ -57,6 +57,7 @@
   box-shadow: 0 2px 8px rgba(0,0,0,0.04);
   padding: 2rem 1.5rem 1.5rem 1.5rem;
   margin-bottom: 2rem;
+  overflow: visible;
 }
 /* About Section Boxes */
 .about-box h3 {
@@ -110,6 +111,10 @@
   left: 50%;
   top: 110%;
   transform: translateX(-50%);
+  white-space: pre-line;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  max-width: 90vw;
   min-width: 220px;
   max-width: 320px;
   background: #fff;
@@ -169,7 +174,7 @@
   padding: 0.3em 0.7em;
   border-radius: 50%;
   cursor: pointer;
-  z-index: 2;
+  z-index: 1002;
   transition: background 0.2s;
 }
 .carousel-arrow.left { left: 10px; }
@@ -413,7 +418,7 @@ a {
   padding: 4rem 0 2rem 0;
   background: #fff;
   position: relative;
-  z-index: 2;
+  z-index: 1001;
 }
 .about-section .container,
 .gallery-section .container,
