@@ -107,16 +107,15 @@
 }
 .about-box .skill-badge .skill-desc {
   display: none;
-  position: absolute;
+  position: fixed;
   left: 50%;
-  top: 110%;
+  top: unset;
+  bottom: calc(65px);
   transform: translateX(-50%);
-  white-space: pre-line;
-  word-break: break-word;
-  overflow-wrap: break-word;
-  max-width: 90vw;
+  /* Appear above the badge, not covering it */
   min-width: 220px;
-  max-width: 320px;
+  max-width: 340px;
+  width: max-content;
   background: #fff;
   color: #6b4b2a;
   border-radius: 10px;
@@ -126,8 +125,11 @@
   font-family: 'Montserrat', Arial, sans-serif;
   font-weight: 500;
   white-space: normal;
+  word-break: break-word;
+  overflow-wrap: break-word;
   pointer-events: none;
   opacity: 0;
+  z-index: 3000;
   transition: opacity 0.18s;
   letter-spacing: 0.01em;
 }
