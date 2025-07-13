@@ -12,20 +12,31 @@ document.addEventListener('DOMContentLoaded', function() {
   }, { threshold: 0.2 });
   skillCards.forEach(card => observer.observe(card));
 
-  // Flip on tap/click for mobile
-  skillCards.forEach(card => {
-    card.addEventListener('click', function(e) {
-      // Only flip if not focused (keyboard accessibility)
-      if (!card.matches(':focus')) {
+  // Flip on hover for desktop, on tap/click for mobile
+  function isTouchDevice() {
+    return (('ontouchstart' in window) || navigator.maxTouchPoints > 0);
+  }
+  if (isTouchDevice()) {
+    skillCards.forEach(card => {
+      card.addEventListener('click', function(e) {
         card.classList.toggle('flipped');
-      }
+      });
+      card.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          card.classList.toggle('flipped');
+        }
+      });
     });
-    card.addEventListener('keypress', function(e) {
-      if (e.key === 'Enter' || e.key === ' ') {
-        card.classList.toggle('flipped');
-      }
+  } else {
+    skillCards.forEach(card => {
+      card.addEventListener('mouseenter', function() {
+        card.classList.add('flipped');
+      });
+      card.addEventListener('mouseleave', function() {
+        card.classList.remove('flipped');
+      });
     });
-  });
+  }
 });
 // === Skill badge flipping logic ===
 document.addEventListener('DOMContentLoaded', function() {
