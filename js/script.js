@@ -1,3 +1,68 @@
+// Bento-style skill card flip and fade-in
+document.addEventListener('DOMContentLoaded', function() {
+  // Fade-in on scroll
+  const skillCards = document.querySelectorAll('.skill-card');
+  const observer = new window.IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  skillCards.forEach(card => observer.observe(card));
+
+  // Flip on tap/click for mobile
+  skillCards.forEach(card => {
+    card.addEventListener('click', function(e) {
+      // Only flip if not focused (keyboard accessibility)
+      if (!card.matches(':focus')) {
+        card.classList.toggle('flipped');
+      }
+    });
+    card.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        card.classList.toggle('flipped');
+      }
+    });
+  });
+});
+// === Skill badge flipping logic ===
+document.addEventListener('DOMContentLoaded', function() {
+  const skillBadges = document.querySelectorAll('.about-box .skill-badge');
+  skillBadges.forEach(badge => {
+    badge.addEventListener('click', function(e) {
+      // Only flip if not already flipped
+      if (!badge.classList.contains('flipped')) {
+        skillBadges.forEach(b => b.classList.remove('flipped'));
+        badge.classList.add('flipped');
+        badge.classList.add('skill-badge-active');
+      } else {
+        badge.classList.remove('flipped');
+        badge.classList.remove('skill-badge-active');
+      }
+    });
+    badge.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        badge.click();
+      }
+    });
+    badge.setAttribute('tabindex', '0');
+    badge.style.outline = 'none';
+    // Flip back and unfocus on mouseleave
+    badge.addEventListener('mouseleave', function() {
+      badge.classList.remove('flipped');
+      badge.classList.remove('skill-badge-active');
+      badge.blur();
+    });
+    // Flip back and unfocus on blur (keyboard navigation)
+    badge.addEventListener('blur', function() {
+      badge.classList.remove('flipped');
+      badge.classList.remove('skill-badge-active');
+    });
+  });
+});
 
 
 // === Hero Section Generative Canvas Background ===
@@ -96,11 +161,17 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   loop();
 });
+
 // === End Hero Section Generative Canvas Background ===
+
+
+
 // AOS Animation Library Init
 if (window.AOS) {
   AOS.init({ once: true, duration: 800 });
 }
+
+// Carousel & Lightbox logic
 const carouselTrack = document.querySelector('.carousel-track');
 const carouselItems = Array.from(document.querySelectorAll('.carousel-item'));
 const prevBtn = document.querySelector('.carousel-arrow.left');
