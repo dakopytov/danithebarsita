@@ -19,10 +19,18 @@ document.addEventListener('DOMContentLoaded', function() {
   if (isTouchDevice()) {
     skillCards.forEach(card => {
       card.addEventListener('click', function(e) {
+        // Flip back any other flipped card
+        skillCards.forEach(c => {
+          if (c !== card) c.classList.remove('flipped');
+        });
         card.classList.toggle('flipped');
       });
       card.addEventListener('keypress', function(e) {
         if (e.key === 'Enter' || e.key === ' ') {
+          // Flip back any other flipped card
+          skillCards.forEach(c => {
+            if (c !== card) c.classList.remove('flipped');
+          });
           card.classList.toggle('flipped');
         }
       });
